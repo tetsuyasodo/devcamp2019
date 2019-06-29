@@ -4,8 +4,8 @@
 - https://www.shoeisha.co.jp/book/download/9784798158921
 
 ### 入門をざっと流す
-[ ] v-text
-[ ] v-bind
-[ ] v-model
-[ ] v-on
+- [ ] v-text
+- [ ] v-bind
+- [ ] v-model
+- [ ] v-on
 
