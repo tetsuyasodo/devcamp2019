@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Vue.js sample</title>
+  <link rel="stylesheet" href="style.css" >
+  <script src="./accbook.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://unpkg.com/vue"></script>
+  <script src="https://unpkg.com/vuejs-datepicker"></script>
+</head>
+
+<body onload="initial();">
+
+<div id="app">
+
+<!-- left box: input -->
+<div class="box">
+  <h2>購入の記録</h2>
+  <p>日付:</p><vuejs-datepicker
+    v-model="datepicked"
+    :value="this.default"
+    name="datepicker" ></vuejs-datepicker>
+  <p>摘要:</p><input type="text" v-model.trim="addtext" placeholder="買ったもの">
+  <p>金額:</p><input type="number" v-model.number="addcost" placeholder="金額">
+  <p>種別:</p><select v-model="addcategory">
+    <option disabled value="">種類を選んでください</option>
+    <option>食費</option>
+    <option>交通費</option>
+    <option>日用品</option>
+    <option>交際費</option>
+    <option>趣味・娯楽</option>
+    <option>仕事・勉強</option>
+    <option>住居費</option>
+    <option>その他</option>
+  </select>
+  <p><button v-on:click="addItem">家計簿に記録</button></p>
+</div>
+ 
+<!-- right box: item list -->
+<div class="box">
+  <h2>購入履歴</h2>
+  <div v-for="item in items">
+    <label>
+      <input type="checkbox" v-model="item.done">
+      <span v-bind:class="{donestyle:item.done}">[{{item.orderdate.getFullYear()}}-{{item.orderdate.getMonth()+1}}-{{item.orderdate.getDate()}}] &nbsp; \{{item.ordercost}} : {{item.orderitem}} ({{item.ordercategory}})</span>
+    </label>
+  </div>
+  <p><button v-on:click="cleanItem">チェック項目を削除</button></p>
+
+  <hr class="borderstyle"/>
+  <h2>今月の合計</h2>
+  \{{totalcost}} (今月残り \{{reminder}})
+</div>
+			
+<div class="box">
+  <div id="chart_div" style="height: 300px;"></div>
+</div>
+
+</div>
+
+
+<!-- stylesheet -->
+<style type="text/css">
+*, *:before, *:after {
+-moz-box-sizing: border-box;
+-webkit-box-sizing: border-box;
+box-sizing: border-box;
+}
+
+.box {
+  display: inline-block;
+  width: 30%;
+  border: 5px solid #ccc;
+  margin: 0 5px 0 0;
+  padding: 1em;
+}
+
+@media only screen and (max-width:480px) {
+  .box {
+    display: block;
+    width: 100%;
+    margin: 0 0 5px 0;
+  }
+}
+</style>
+
+</body>
+</html>
